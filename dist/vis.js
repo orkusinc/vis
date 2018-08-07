@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 4.21.0-SNAPSHOT
- * @date    2018-07-20
+ * @date    2018-08-07
  *
  * @license
  * Copyright (C) 2011-2017 Almende B.V, http://almende.com
@@ -43229,7 +43229,8 @@ function Network(container, data, options) {
     return _this.body.emitter.emit("_requestRedraw");
   }); // object with images
   this.groups = new Groups(); // object with groups
-  this.canvas = new Canvas(this.body); // DOM handler
+  this.canvas = new Canvas(this.body);
+  this.canvas.zooming = false; // DOM handler
   this.selectionHandler = new SelectionHandler(this.body, this.canvas); // Selection handler
   this.interactionHandler = new InteractionHandler(this.body, this.canvas, this.selectionHandler); // Interaction handler handles all the hammer bindings (that are bound by canvas), key
   this.view = new View(this.body, this.canvas); // camera handler, does animations and zooms
@@ -53345,7 +53346,7 @@ var CanvasRenderer = function () {
         ctx.closePath();
 
         if (hidden === false) {
-          if ((this.dragging === false || this.dragging === true && this.options.hideEdgesOnDrag === false) && (this.zooming === false || this.zooming === true && this.options.hideEdgesOnZoom === false)) {
+          if ((this.dragging === false || this.dragging === true && this.options.hideEdgesOnDrag === false) && (this.zooming === false || this.zooming === true && this.options.hideEdgesOnZoom === false) && this.canvas.zooming === false) {
             this._drawEdges(ctx);
           }
         }
@@ -54143,6 +54144,7 @@ var View = function () {
 
     this.body.emitter.on("fit", this.fit.bind(this));
     this.body.emitter.on("animationFinished", function () {
+      _this.canvas.zooming = false;
       _this.body.emitter.emit("_stopRendering");
     });
     this.body.emitter.on("unlockNode", this.releaseNode.bind(this));
@@ -54265,6 +54267,7 @@ var View = function () {
   }, {
     key: 'moveTo',
     value: function moveTo(options) {
+      this.canvas.zooming = true;
       if (options === undefined) {
         options = {};
         return;
