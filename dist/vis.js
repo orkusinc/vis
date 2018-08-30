@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 4.21.0-SNAPSHOT
- * @date    2018-08-07
+ * @date    2018-08-30
  *
  * @license
  * Copyright (C) 2011-2017 Almende B.V, http://almende.com
@@ -14514,7 +14514,7 @@ var Edge = function () {
     (0, _classCallCheck3['default'])(this, Edge);
 
     if (body === undefined) {
-      throw new Error("No body provided");
+      throw new Error('No body provided');
     }
 
     // Since globalOptions is constant in values as well as reference,
@@ -14543,7 +14543,8 @@ var Edge = function () {
 
     this.connected = false;
 
-    this.labelModule = new Label(this.body, this.options, true /* It's an edge label */);
+    this.labelModule = new Label(this.body, this.options, true /* It's an edge label */
+    );
     this.setOptions(options);
   }
 
@@ -14719,6 +14720,7 @@ var Edge = function () {
     key: 'updateEdgeType',
     value: function updateEdgeType() {
       var smooth = this.options.smooth;
+      console.log('smooth from network/modules/components/Edge.js', smooth);
       var dataChanged = false;
       var changeInType = true;
       if (this.edgeType !== undefined) {
@@ -14976,12 +14978,12 @@ var Edge = function () {
           this.labelModule.draw(ctx, point.x, point.y, this.selected, this.hover);
 
           /*
-                  // Useful debug code: draw a border around the label
-                  // This should **not** be enabled in production!
-                  var size = this.labelModule.getSize();; // ;; intentional so lint catches it
-                  ctx.strokeStyle = "#ff0000";
-                  ctx.strokeRect(size.left, size.top, size.width, size.height);
-                  // End  debug code
+          // Useful debug code: draw a border around the label
+          // This should **not** be enabled in production!
+          var size = this.labelModule.getSize();; // ;; intentional so lint catches it
+          ctx.strokeStyle = "#ff0000";
+          ctx.strokeRect(size.left, size.top, size.width, size.height);
+          // End  debug code
           */
 
           ctx.restore();
@@ -15061,7 +15063,7 @@ var Edge = function () {
       }
     }
 
-    /** 
+    /**
      * Determine the rotation point, if any.
      *
      * @param {CanvasRenderingContext2D} [ctx] if passed, do a recalculation of the label size
@@ -15089,7 +15091,7 @@ var Edge = function () {
         return ret; // Don't even bother doing the atan2, there's nothing to draw
       }
 
-      if (this.options.font.align === "horizontal") {
+      if (this.options.font.align === 'horizontal') {
         return ret; // No need to calculate angle
       }
 
@@ -15225,15 +15227,15 @@ var Edge = function () {
       if (newOptions.arrows !== undefined && newOptions.arrows !== null) {
         if (typeof newOptions.arrows === 'string') {
           var arrows = newOptions.arrows.toLowerCase();
-          parentOptions.arrows.to.enabled = arrows.indexOf("to") != -1;
-          parentOptions.arrows.middle.enabled = arrows.indexOf("middle") != -1;
-          parentOptions.arrows.from.enabled = arrows.indexOf("from") != -1;
+          parentOptions.arrows.to.enabled = arrows.indexOf('to') != -1;
+          parentOptions.arrows.middle.enabled = arrows.indexOf('middle') != -1;
+          parentOptions.arrows.from.enabled = arrows.indexOf('from') != -1;
         } else if ((0, _typeof3['default'])(newOptions.arrows) === 'object') {
           util.mergeOptions(parentOptions.arrows, newOptions.arrows, 'to', globalOptions.arrows);
           util.mergeOptions(parentOptions.arrows, newOptions.arrows, 'middle', globalOptions.arrows);
           util.mergeOptions(parentOptions.arrows, newOptions.arrows, 'from', globalOptions.arrows);
         } else {
-          throw new Error("The arrow newOptions can only be an object or a string. Refer to the documentation. You used:" + (0, _stringify2['default'])(newOptions.arrows));
+          throw new Error('The arrow newOptions can only be an object or a string. Refer to the documentation. You used:' + (0, _stringify2['default'])(newOptions.arrows));
         }
       } else if (allowDeletion === true && newOptions.arrows === null) {
         parentOptions.arrows = (0, _create2['default'])(globalOptions.arrows); // this sets the pointer of the option back to the global option.
@@ -15267,13 +15269,16 @@ var Edge = function () {
         } else {
           var colorsDefined = false;
           if (fromColor.color !== undefined) {
-            toColor.color = fromColor.color;colorsDefined = true;
+            toColor.color = fromColor.color;
+            colorsDefined = true;
           }
           if (fromColor.highlight !== undefined) {
-            toColor.highlight = fromColor.highlight;colorsDefined = true;
+            toColor.highlight = fromColor.highlight;
+            colorsDefined = true;
           }
           if (fromColor.hover !== undefined) {
-            toColor.hover = fromColor.hover;colorsDefined = true;
+            toColor.hover = fromColor.hover;
+            colorsDefined = true;
           }
           if (fromColor.inherit !== undefined) {
             toColor.inherit = fromColor.inherit;
@@ -15538,7 +15543,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var util = __webpack_require__(2);
 
@@ -15551,7 +15556,7 @@ var NetworkUtil = function () {
    * @ignore
    */
   function NetworkUtil() {
-    (0, _classCallCheck3["default"])(this, NetworkUtil);
+    (0, _classCallCheck3['default'])(this, NetworkUtil);
   }
 
   /**
@@ -15564,8 +15569,8 @@ var NetworkUtil = function () {
    */
 
 
-  (0, _createClass3["default"])(NetworkUtil, null, [{
-    key: "getRange",
+  (0, _createClass3['default'])(NetworkUtil, null, [{
+    key: 'getRange',
     value: function getRange(allNodes) {
       var specificNodes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
@@ -15593,7 +15598,7 @@ var NetworkUtil = function () {
       }
 
       if (minX === 1e9 && maxX === -1e9 && minY === 1e9 && maxY === -1e9) {
-        minY = 0, maxY = 0, minX = 0, maxX = 0;
+        ;minY = 0, maxY = 0, minX = 0, maxX = 0;
       }
       return { minX: minX, maxX: maxX, minY: minY, maxY: maxY };
     }
@@ -15608,7 +15613,7 @@ var NetworkUtil = function () {
      */
 
   }, {
-    key: "getRangeCore",
+    key: 'getRangeCore',
     value: function getRangeCore(allNodes) {
       var specificNodes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
@@ -15636,7 +15641,7 @@ var NetworkUtil = function () {
       }
 
       if (minX === 1e9 && maxX === -1e9 && minY === 1e9 && maxY === -1e9) {
-        minY = 0, maxY = 0, minX = 0, maxX = 0;
+        ;minY = 0, maxY = 0, minX = 0, maxX = 0;
       }
       return { minX: minX, maxX: maxX, minY: minY, maxY: maxY };
     }
@@ -15648,10 +15653,12 @@ var NetworkUtil = function () {
      */
 
   }, {
-    key: "findCenter",
+    key: 'findCenter',
     value: function findCenter(range) {
-      return { x: 0.5 * (range.maxX + range.minX),
-        y: 0.5 * (range.maxY + range.minY) };
+      return {
+        x: 0.5 * (range.maxX + range.minX),
+        y: 0.5 * (range.maxY + range.minY)
+      };
     }
 
     /**
@@ -15663,7 +15670,7 @@ var NetworkUtil = function () {
      */
 
   }, {
-    key: "cloneOptions",
+    key: 'cloneOptions',
     value: function cloneOptions(item, type) {
       var clonedOptions = {};
       if (type === undefined || type === 'node') {
@@ -15680,7 +15687,7 @@ var NetworkUtil = function () {
   return NetworkUtil;
 }();
 
-exports["default"] = NetworkUtil;
+exports['default'] = NetworkUtil;
 
 /***/ }),
 /* 78 */
@@ -24836,8 +24843,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
  * ====
  *
  * For label handling, this is an incomplete implementation. From docs (quote #3015):
- * 
- * > the escape sequences "\n", "\l" and "\r" divide the label into lines, centered, 
+ *
+ * > the escape sequences "\n", "\l" and "\r" divide the label into lines, centered,
  * > left-justified, and right-justified, respectively.
  *
  * Source: http://www.graphviz.org/content/attrs#kescString
@@ -24861,14 +24868,14 @@ function parseDOT(data) {
 
 // mapping of attributes from DOT (the keys) to vis.js (the values)
 var NODE_ATTR_MAPPING = {
-  'fontsize': 'font.size',
-  'fontcolor': 'font.color',
-  'labelfontcolor': 'font.color',
-  'fontname': 'font.face',
-  'color': ['color.border', 'color.background'],
-  'fillcolor': 'color.background',
-  'tooltip': 'title',
-  'labeltooltip': 'title'
+  fontsize: 'font.size',
+  fontcolor: 'font.color',
+  labelfontcolor: 'font.color',
+  fontname: 'font.face',
+  color: ['color.border', 'color.background'],
+  fillcolor: 'color.background',
+  tooltip: 'title',
+  labeltooltip: 'title'
 };
 var EDGE_ATTR_MAPPING = (0, _create2['default'])(NODE_ATTR_MAPPING);
 EDGE_ATTR_MAPPING.color = 'color.color';
@@ -24880,10 +24887,9 @@ var TOKENTYPE = {
   DELIMITER: 1,
   IDENTIFIER: 2,
   UNKNOWN: 3
-};
 
-// map with all delimiters
-var DELIMITERS = {
+  // map with all delimiters
+};var DELIMITERS = {
   '{': true,
   '}': true,
   '[': true,
@@ -25508,9 +25514,9 @@ function parseAttributeList() {
 
   // edge styles of dot and vis
   var edgeStyles = {
-    'dashed': true,
-    'solid': false,
-    'dotted': [1, 5]
+    dashed: true,
+    solid: false,
+    dotted: [1, 5]
   };
 
   while (token === '[') {
@@ -25694,10 +25700,9 @@ function DOTToGraph(data) {
     nodes: [],
     edges: [],
     options: {}
-  };
 
-  // copy the nodes
-  if (dotData.nodes) {
+    // copy the nodes
+  };if (dotData.nodes) {
     dotData.nodes.forEach(function (dotNode) {
       var graphNode = {
         id: dotNode.id,
@@ -25861,7 +25866,12 @@ function parseGephi(gephiJSON, optionsObj) {
     if (options.nodes.parseColor === true) {
       node['color'] = gNode.color;
     } else {
-      node['color'] = gNode.color !== undefined ? { background: gNode.color, border: gNode.color, highlight: { background: gNode.color, border: gNode.color }, hover: { background: gNode.color, border: gNode.color } } : undefined;
+      node['color'] = gNode.color !== undefined ? {
+        background: gNode.color,
+        border: gNode.color,
+        highlight: { background: gNode.color, border: gNode.color },
+        hover: { background: gNode.color, border: gNode.color }
+      } : undefined;
     }
     node['size'] = gNode.size;
     node['fixed'] = options.nodes.fixed && gNode.x !== undefined && gNode.y !== undefined;
@@ -25881,7 +25891,7 @@ exports.parseGephi = parseGephi;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _classCallCheck2 = __webpack_require__(0);
@@ -25896,7 +25906,7 @@ var _CachedImage = __webpack_require__(186);
 
 var _CachedImage2 = _interopRequireDefault(_CachedImage);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /**
  * This callback is a callback that accepts an Image.
@@ -25910,125 +25920,124 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
  * @param {ImageCallback} callback
  */
 var Images = function () {
-    /**
-     * @param {ImageCallback} callback
-     */
-    function Images(callback) {
-        (0, _classCallCheck3["default"])(this, Images);
+  /**
+   * @param {ImageCallback} callback
+   */
+  function Images(callback) {
+    (0, _classCallCheck3['default'])(this, Images);
 
-        this.images = {};
-        this.imageBroken = {};
-        this.callback = callback;
+    this.images = {};
+    this.imageBroken = {};
+    this.callback = callback;
+  }
+
+  /**
+   * @param {string} url                      The original Url that failed to load, if the broken image is successfully loaded it will be added to the cache using this Url as the key so that subsequent requests for this Url will return the broken image
+   * @param {string} brokenUrl                Url the broken image to try and load
+   * @param {Image} imageToLoadBrokenUrlOn   The image object
+   */
+
+  (0, _createClass3['default'])(Images, [{
+    key: '_tryloadBrokenUrl',
+    value: function _tryloadBrokenUrl(url, brokenUrl, imageToLoadBrokenUrlOn) {
+      //If these parameters aren't specified then exit the function because nothing constructive can be done
+      if (url === undefined || imageToLoadBrokenUrlOn === undefined) return;
+      if (brokenUrl === undefined) {
+        console.warn('No broken url image defined');
+        return;
+      }
+
+      //Clear the old subscription to the error event and put a new in place that only handle errors in loading the brokenImageUrl
+      imageToLoadBrokenUrlOn.onerror = function () {
+        console.error('Could not load brokenImage:', brokenUrl);
+        // cache item will contain empty image, this should be OK for default
+      };
+
+      //Set the source of the image to the brokenUrl, this is actually what kicks off the loading of the broken image
+      imageToLoadBrokenUrlOn.image.src = brokenUrl;
     }
 
     /**
-     * @param {string} url                      The original Url that failed to load, if the broken image is successfully loaded it will be added to the cache using this Url as the key so that subsequent requests for this Url will return the broken image
-     * @param {string} brokenUrl                Url the broken image to try and load
-     * @param {Image} imageToLoadBrokenUrlOn   The image object
+     *
+     * @param {vis.Image} imageToRedrawWith
+     * @private
      */
 
+  }, {
+    key: '_redrawWithImage',
+    value: function _redrawWithImage(imageToRedrawWith) {
+      if (this.callback) {
+        this.callback(imageToRedrawWith);
+      }
+    }
 
-    (0, _createClass3["default"])(Images, [{
-        key: "_tryloadBrokenUrl",
-        value: function _tryloadBrokenUrl(url, brokenUrl, imageToLoadBrokenUrlOn) {
-            //If these parameters aren't specified then exit the function because nothing constructive can be done
-            if (url === undefined || imageToLoadBrokenUrlOn === undefined) return;
-            if (brokenUrl === undefined) {
-                console.warn("No broken url image defined");
-                return;
-            }
+    /**
+     * @param {string} url          Url of the image
+     * @param {string} brokenUrl    Url of an image to use if the url image is not found
+     * @return {Image} img          The image object
+     */
 
-            //Clear the old subscription to the error event and put a new in place that only handle errors in loading the brokenImageUrl
-            imageToLoadBrokenUrlOn.onerror = function () {
-                console.error("Could not load brokenImage:", brokenUrl);
-                // cache item will contain empty image, this should be OK for default
-            };
+  }, {
+    key: 'load',
+    value: function load(url, brokenUrl) {
+      var _this = this;
 
-            //Set the source of the image to the brokenUrl, this is actually what kicks off the loading of the broken image
-            imageToLoadBrokenUrlOn.image.src = brokenUrl;
-        }
+      //Try and get the image from the cache, if successful then return the cached image
+      var cachedImage = this.images[url];
+      if (cachedImage) return cachedImage;
 
-        /**
-         *
-         * @param {vis.Image} imageToRedrawWith
-         * @private
-         */
+      //Create a new image
+      var img = new _CachedImage2['default']();
 
-    }, {
-        key: "_redrawWithImage",
-        value: function _redrawWithImage(imageToRedrawWith) {
-            if (this.callback) {
-                this.callback(imageToRedrawWith);
-            }
-        }
+      // Need to add to cache here, otherwise final return will spawn different copies of the same image,
+      // Also, there will be multiple loads of the same image.
+      this.images[url] = img;
 
-        /**
-         * @param {string} url          Url of the image
-         * @param {string} brokenUrl    Url of an image to use if the url image is not found
-         * @return {Image} img          The image object
-         */
+      //Subscribe to the event that is raised if the image loads successfully
+      img.image.onload = function () {
+        // Properly init the cached item and then request a redraw
+        _this._fixImageCoordinates(img.image);
+        img.init();
+        _this._redrawWithImage(img);
+      };
 
-    }, {
-        key: "load",
-        value: function load(url, brokenUrl) {
-            var _this = this;
+      //Subscribe to the event that is raised if the image fails to load
+      img.image.onerror = function () {
+        console.error('Could not load image:', url);
+        //Try and load the image specified by the brokenUrl using
+        _this._tryloadBrokenUrl(url, brokenUrl, img);
+      };
 
-            //Try and get the image from the cache, if successful then return the cached image   
-            var cachedImage = this.images[url];
-            if (cachedImage) return cachedImage;
+      //Set the source of the image to the url, this is what actually kicks off the loading of the image
+      img.image.src = url;
 
-            //Create a new image
-            var img = new _CachedImage2["default"]();
+      //Return the new image
+      return img;
+    }
 
-            // Need to add to cache here, otherwise final return will spawn different copies of the same image,
-            // Also, there will be multiple loads of the same image.
-            this.images[url] = img;
+    /**
+     * IE11 fix -- thanks dponch!
+     *
+     * Local helper function
+     * @param {vis.Image} imageToCache
+     * @private
+     */
 
-            //Subscribe to the event that is raised if the image loads successfully 
-            img.image.onload = function () {
-                // Properly init the cached item and then request a redraw
-                _this._fixImageCoordinates(img.image);
-                img.init();
-                _this._redrawWithImage(img);
-            };
-
-            //Subscribe to the event that is raised if the image fails to load
-            img.image.onerror = function () {
-                console.error("Could not load image:", url);
-                //Try and load the image specified by the brokenUrl using
-                _this._tryloadBrokenUrl(url, brokenUrl, img);
-            };
-
-            //Set the source of the image to the url, this is what actually kicks off the loading of the image
-            img.image.src = url;
-
-            //Return the new image
-            return img;
-        }
-
-        /**
-         * IE11 fix -- thanks dponch!
-         *
-         * Local helper function
-         * @param {vis.Image} imageToCache
-         * @private
-         */
-
-    }, {
-        key: "_fixImageCoordinates",
-        value: function _fixImageCoordinates(imageToCache) {
-            if (imageToCache.width === 0) {
-                document.body.appendChild(imageToCache);
-                imageToCache.width = imageToCache.offsetWidth;
-                imageToCache.height = imageToCache.offsetHeight;
-                document.body.removeChild(imageToCache);
-            }
-        }
-    }]);
-    return Images;
+  }, {
+    key: '_fixImageCoordinates',
+    value: function _fixImageCoordinates(imageToCache) {
+      if (imageToCache.width === 0) {
+        document.body.appendChild(imageToCache);
+        imageToCache.width = imageToCache.offsetWidth;
+        imageToCache.height = imageToCache.offsetHeight;
+        document.body.removeChild(imageToCache);
+      }
+    }
+  }]);
+  return Images;
 }();
 
-exports["default"] = Images;
+exports['default'] = Images;
 
 /***/ }),
 /* 117 */
@@ -28971,9 +28980,24 @@ var allOptions = {
   },
   edges: {
     arrows: {
-      to: { enabled: { boolean: bool }, scaleFactor: { number: number }, type: { string: endPoints }, __type__: { object: object, boolean: bool } },
-      middle: { enabled: { boolean: bool }, scaleFactor: { number: number }, type: { string: endPoints }, __type__: { object: object, boolean: bool } },
-      from: { enabled: { boolean: bool }, scaleFactor: { number: number }, type: { string: endPoints }, __type__: { object: object, boolean: bool } },
+      to: {
+        enabled: { boolean: bool },
+        scaleFactor: { number: number },
+        type: { string: endPoints },
+        __type__: { object: object, boolean: bool }
+      },
+      middle: {
+        enabled: { boolean: bool },
+        scaleFactor: { number: number },
+        type: { string: endPoints },
+        __type__: { object: object, boolean: bool }
+      },
+      from: {
+        enabled: { boolean: bool },
+        scaleFactor: { number: number },
+        type: { string: endPoints },
+        __type__: { object: object, boolean: bool }
+      },
       __type__: { string: ['from', 'to', 'middle'], object: object }
     },
     arrowStrikethrough: { boolean: bool },
@@ -29044,9 +29068,9 @@ var allOptions = {
     },
     hidden: { boolean: bool },
     hoverWidth: { 'function': 'function', number: number },
-    label: { string: string, 'undefined': 'undefined' },
+    label: { string: string, undefined: 'undefined' },
     labelHighlightBold: { boolean: bool },
-    length: { number: number, 'undefined': 'undefined' },
+    length: { number: number, undefined: 'undefined' },
     physics: { boolean: bool },
     scaling: {
       min: { number: number },
@@ -29074,18 +29098,23 @@ var allOptions = {
     },
     smooth: {
       enabled: { boolean: bool },
-      type: { string: ['dynamic', 'continuous', 'discrete', 'diagonalCross', 'straightCross', 'horizontal', 'vertical', 'curvedCW', 'curvedCCW', 'cubicBezier'] },
+      type: {
+        string: ['dynamic', 'continuous', 'discrete', 'diagonalCross', 'straightCross', 'horizontal', 'vertical', 'curvedCW', 'curvedCCW', 'cubicBezier']
+      },
       roundness: { number: number },
-      forceDirection: { string: ['horizontal', 'vertical', 'none'], boolean: bool },
+      forceDirection: {
+        string: ['horizontal', 'vertical', 'none'],
+        boolean: bool
+      },
       __type__: { object: object, boolean: bool }
     },
-    title: { string: string, 'undefined': 'undefined' },
+    title: { string: string, undefined: 'undefined' },
     width: { number: number },
     widthConstraint: {
       maximum: { number: number },
       __type__: { object: object, boolean: bool, number: number }
     },
-    value: { number: number, 'undefined': 'undefined' },
+    value: { number: number, undefined: 'undefined' },
     __type__: { object: object }
   },
   groups: {
@@ -29102,7 +29131,12 @@ var allOptions = {
     hover: { boolean: bool },
     keyboard: {
       enabled: { boolean: bool },
-      speed: { x: { number: number }, y: { number: number }, zoom: { number: number }, __type__: { object: object } },
+      speed: {
+        x: { number: number },
+        y: { number: number },
+        zoom: { number: number },
+        __type__: { object: object }
+      },
       bindToWindow: { boolean: bool },
       __type__: { object: object, boolean: bool }
     },
@@ -29117,7 +29151,7 @@ var allOptions = {
     __type__: { object: object }
   },
   layout: {
-    randomSeed: { 'undefined': 'undefined', number: number },
+    randomSeed: { undefined: 'undefined', number: number },
     improvedLayout: { boolean: bool },
     hierarchical: {
       enabled: { boolean: bool },
@@ -29150,8 +29184,8 @@ var allOptions = {
   },
   nodes: {
     borderWidth: { number: number },
-    borderWidthSelected: { number: number, 'undefined': 'undefined' },
-    brokenImage: { string: string, 'undefined': 'undefined' },
+    borderWidthSelected: { number: number, undefined: 'undefined' },
+    brokenImage: { string: string, undefined: 'undefined' },
     chosen: {
       label: { boolean: bool, 'function': 'function' },
       node: { boolean: bool, 'function': 'function' },
@@ -29221,7 +29255,7 @@ var allOptions = {
       },
       __type__: { object: object, string: string }
     },
-    group: { string: string, number: number, 'undefined': 'undefined' },
+    group: { string: string, number: number, undefined: 'undefined' },
     heightConstraint: {
       minimum: { number: number },
       valign: { string: string },
@@ -29237,13 +29271,13 @@ var allOptions = {
     },
     id: { string: string, number: number },
     image: {
-      selected: { string: string, 'undefined': 'undefined' }, // --> URL
-      unselected: { string: string, 'undefined': 'undefined' }, // --> URL
+      selected: { string: string, undefined: 'undefined' }, // --> URL
+      unselected: { string: string, undefined: 'undefined' }, // --> URL
       __type__: { object: object, string: string }
     },
-    label: { string: string, 'undefined': 'undefined' },
+    label: { string: string, undefined: 'undefined' },
     labelHighlightBold: { boolean: bool },
-    level: { number: number, 'undefined': 'undefined' },
+    level: { number: number, undefined: 'undefined' },
     margin: {
       top: { number: number },
       right: { number: number },
@@ -29275,7 +29309,9 @@ var allOptions = {
       y: { number: number },
       __type__: { object: object, boolean: bool }
     },
-    shape: { string: ['ellipse', 'circle', 'database', 'box', 'text', 'image', 'circularImage', 'diamond', 'dot', 'star', 'triangle', 'triangleDown', 'square', 'icon', 'hexagon'] },
+    shape: {
+      string: ['ellipse', 'circle', 'database', 'box', 'text', 'image', 'circularImage', 'diamond', 'dot', 'star', 'triangle', 'triangleDown', 'square', 'icon', 'hexagon']
+    },
     shapeProperties: {
       borderDashes: { boolean: bool, array: array },
       borderRadius: { number: number },
@@ -29285,8 +29321,8 @@ var allOptions = {
       __type__: { object: object }
     },
     size: { number: number },
-    title: { string: string, dom: dom, 'undefined': 'undefined' },
-    value: { number: number, 'undefined': 'undefined' },
+    title: { string: string, dom: dom, undefined: 'undefined' },
+    value: { number: number, undefined: 'undefined' },
     widthConstraint: {
       minimum: { number: number },
       maximum: { number: number },
@@ -29334,7 +29370,9 @@ var allOptions = {
     },
     maxVelocity: { number: number },
     minVelocity: { number: number }, // px/s
-    solver: { string: ['barnesHut', 'repulsion', 'hierarchicalRepulsion', 'forceAtlas2Based'] },
+    solver: {
+      string: ['barnesHut', 'repulsion', 'hierarchicalRepulsion', 'forceAtlas2Based']
+    },
     stabilization: {
       enabled: { boolean: bool },
       iterations: { number: number }, // maximum number of iteration to stabilize
@@ -29510,7 +29548,11 @@ var configureOptions = {
     hover: false,
     keyboard: {
       enabled: false,
-      speed: { x: [10, 0, 40, 1], y: [10, 0, 40, 1], zoom: [0.02, 0, 0.1, 0.005] },
+      speed: {
+        x: [10, 0, 40, 1],
+        y: [10, 0, 40, 1],
+        zoom: [0.02, 0, 0.1, 0.005]
+      },
       bindToWindow: true
     },
     multiselect: false,
@@ -43219,14 +43261,13 @@ function Network(container, data, options) {
       scale: 1,
       translation: { x: 0, y: 0 }
     }
-  };
 
-  // bind the event listeners
-  this.bindEventListeners();
+    // bind the event listeners
+  };this.bindEventListeners();
 
   // setting up all modules
   this.images = new Images(function () {
-    return _this.body.emitter.emit("_requestRedraw");
+    return _this.body.emitter.emit('_requestRedraw');
   }); // object with images
   this.groups = new Groups(); // object with groups
   this.canvas = new Canvas(this.body);
@@ -43243,8 +43284,8 @@ function Network(container, data, options) {
   this.nodesHandler = new NodesHandler(this.body, this.images, this.groups, this.layoutEngine); // Handle adding, deleting and updating of nodes as well as global options
   this.edgesHandler = new EdgesHandler(this.body, this.images, this.groups); // Handle adding, deleting and updating of edges as well as global options
 
-  this.body.modules["kamadaKawai"] = new KamadaKawai(this.body, 150, 0.05); // Layouting algorithm.
-  this.body.modules["clustering"] = this.clustering;
+  this.body.modules['kamadaKawai'] = new KamadaKawai(this.body, 150, 0.05); // Layouting algorithm.
+  this.body.modules['clustering'] = this.clustering;
 
   // create the DOM elements
   this.canvas._create();
@@ -43298,7 +43339,7 @@ Network.prototype.setOptions = function (options) {
 
     // reload the settings of the nodes to apply changes in groups that are not referenced by pointer.
     if (options.groups !== undefined) {
-      this.body.emitter.emit("refreshNodes");
+      this.body.emitter.emit('refreshNodes');
     }
     // these two do not have options at the moment, here for completeness
     //this.view.setOptions(options.view);
@@ -43314,7 +43355,15 @@ Network.prototype.setOptions = function (options) {
 
     // if the configuration system is enabled, copy all options and put them into the config system
     if (this.configurator && this.configurator.options.enabled === true) {
-      var networkOptions = { nodes: {}, edges: {}, layout: {}, interaction: {}, manipulation: {}, physics: {}, global: {} };
+      var networkOptions = {
+        nodes: {},
+        edges: {},
+        layout: {},
+        interaction: {},
+        manipulation: {},
+        physics: {},
+        global: {}
+      };
       util.deepExtend(networkOptions.nodes, this.nodesHandler.options);
       util.deepExtend(networkOptions.edges, this.edgesHandler.options);
       util.deepExtend(networkOptions.layout, this.layoutEngine.options);
@@ -43339,7 +43388,7 @@ Network.prototype.setOptions = function (options) {
         if (this.activator === undefined) {
           this.activator = new Activator(this.canvas.frame);
           this.activator.on('change', function () {
-            _this2.body.emitter.emit("activate");
+            _this2.body.emitter.emit('activate');
           });
         }
       } else {
@@ -43347,15 +43396,15 @@ Network.prototype.setOptions = function (options) {
           this.activator.destroy();
           delete this.activator;
         }
-        this.body.emitter.emit("activate");
+        this.body.emitter.emit('activate');
       }
     } else {
-      this.body.emitter.emit("activate");
+      this.body.emitter.emit('activate');
     }
 
     this.canvas.setSize();
     // start the physics simulation. Can be safely called multiple times.
-    this.body.emitter.emit("startSimulation");
+    this.body.emitter.emit('startSimulation');
   }
 };
 
@@ -43392,8 +43441,8 @@ Network.prototype._updateVisibleIndices = function () {
       var toNode = nodes[edge.toId];
       var edgeNodesPresent = fromNode !== undefined && toNode !== undefined;
 
-      var isVisible = !this.clustering._isClusteredEdge(edgeId) && edge.options.hidden === false && edgeNodesPresent && fromNode.options.hidden === false // Also hidden if any of its connecting nodes are hidden
-      && toNode.options.hidden === false; // idem
+      var isVisible = !this.clustering._isClusteredEdge(edgeId) && edge.options.hidden === false && edgeNodesPresent && fromNode.options.hidden === false && // Also hidden if any of its connecting nodes are hidden
+      toNode.options.hidden === false; // idem
 
       if (isVisible) {
         this.body.edgeIndices.push(edge.id);
@@ -43410,13 +43459,13 @@ Network.prototype.bindEventListeners = function () {
 
   // This event will trigger a rebuilding of the cache everything.
   // Used when nodes or edges have been added or removed.
-  this.body.emitter.on("_dataChanged", function () {
+  this.body.emitter.on('_dataChanged', function () {
     _this3.edgesHandler._updateState();
-    _this3.body.emitter.emit("_dataUpdated");
+    _this3.body.emitter.emit('_dataUpdated');
   });
 
   // this is called when options of EXISTING nodes or edges have changed.
-  this.body.emitter.on("_dataUpdated", function () {
+  this.body.emitter.on('_dataUpdated', function () {
     // Order important in following block
     _this3.clustering._updateState();
     _this3._updateVisibleIndices();
@@ -43424,8 +43473,8 @@ Network.prototype.bindEventListeners = function () {
     _this3._updateValueRange(_this3.body.nodes);
     _this3._updateValueRange(_this3.body.edges);
     // start simulation (can be called safely, even if already running)
-    _this3.body.emitter.emit("startSimulation");
-    _this3.body.emitter.emit("_requestRedraw");
+    _this3.body.emitter.emit('startSimulation');
+    _this3.body.emitter.emit('_requestRedraw');
   });
 };
 
@@ -43441,8 +43490,8 @@ Network.prototype.bindEventListeners = function () {
  */
 Network.prototype.setData = function (data) {
   // reset the physics engine.
-  this.body.emitter.emit("resetPhysics");
-  this.body.emitter.emit("_resetData");
+  this.body.emitter.emit('resetPhysics');
+  this.body.emitter.emit('_resetData');
 
   // unselect all to ensure no selections from old data are carried over.
   this.selectionHandler.unselectAll();
@@ -43472,13 +43521,13 @@ Network.prototype.setData = function (data) {
   }
 
   // emit change in data
-  this.body.emitter.emit("_dataChanged");
+  this.body.emitter.emit('_dataChanged');
 
   // emit data loaded
-  this.body.emitter.emit("_dataLoaded");
+  this.body.emitter.emit('_dataLoaded');
 
   // find a stable position or start animating to a stable position
-  this.body.emitter.emit("initPhysics");
+  this.body.emitter.emit('initPhysics');
 };
 
 /**
@@ -43488,7 +43537,7 @@ Network.prototype.setData = function (data) {
  * network = null;
  */
 Network.prototype.destroy = function () {
-  this.body.emitter.emit("destroy");
+  this.body.emitter.emit('destroy');
   // clear events
   this.body.emitter.off();
   this.off();
@@ -43643,7 +43692,8 @@ Network.prototype.editNode = function () {
   return this.manipulation.editNode.apply(this.manipulation, arguments);
 };
 Network.prototype.editNodeMode = function () {
-  console.log("Deprecated: Please use editNode instead of editNodeMode.");return this.manipulation.editNode.apply(this.manipulation, arguments);
+  console.log('Deprecated: Please use editNode instead of editNodeMode.');
+  return this.manipulation.editNode.apply(this.manipulation, arguments);
 };
 Network.prototype.addEdgeMode = function () {
   return this.manipulation.addEdgeMode.apply(this.manipulation, arguments);
@@ -43763,7 +43813,6 @@ module.exports = Network;
  * Canvas shapes used by Network
  */
 if (typeof CanvasRenderingContext2D !== 'undefined') {
-
   /**
    * Draw a circle shape
    *
@@ -43807,7 +43856,6 @@ if (typeof CanvasRenderingContext2D !== 'undefined') {
     var s2 = s / 2;
     var ir = Math.sqrt(3) / 6 * s; // radius of inner circle
     var h = Math.sqrt(s * s - s2 * s2); // height
-
 
     this.moveTo(x, y - (h - ir));
     this.lineTo(x + s2, y + ir);
@@ -43923,7 +43971,7 @@ if (typeof CanvasRenderingContext2D !== 'undefined') {
    * @param {number} h
    */
   CanvasRenderingContext2D.prototype.ellipse_vis = function (x, y, w, h) {
-    var kappa = .5522848,
+    var kappa = 0.5522848,
         ox = w / 2 * kappa,
         // control point offset horizontal
     oy = h / 2 * kappa,
@@ -43958,7 +44006,7 @@ if (typeof CanvasRenderingContext2D !== 'undefined') {
     var wEllipse = w;
     var hEllipse = h * f;
 
-    var kappa = .5522848,
+    var kappa = 0.5522848,
         ox = wEllipse / 2 * kappa,
         // control point offset horizontal
     oy = hEllipse / 2 * kappa,
@@ -44223,9 +44271,9 @@ exports['uk'] = {
   editNode: 'Редагувати вузол',
   editEdge: 'Редагувати край',
   addDescription: 'Kлікніть на вільне місце, щоб додати новий вузол.',
-  edgeDescription: 'Клікніть на вузол і перетягніть край до іншого вузла, щоб їх з\'єднати.',
+  edgeDescription: "Клікніть на вузол і перетягніть край до іншого вузла, щоб їх з'єднати.",
   editEdgeDescription: 'Клікніть на контрольні точки і перетягніть їх у вузол, щоб підключитися до нього.',
-  createEdgeError: 'Не можливо об\'єднати краї в групу.',
+  createEdgeError: "Не можливо об'єднати краї в групу.",
   deleteClusterError: 'Групи не можуть бути видалені.',
   editClusterError: 'Групи недоступні для редагування.'
 };
@@ -44267,8 +44315,10 @@ var CachedImage = function () {
   /**
    * @ignore
    */
+
   function CachedImage() {
     (0, _classCallCheck3['default'])(this, CachedImage);
+
     // eslint-disable-line no-unused-vars
     this.NUM_ITERATIONS = 4; // Number of items in the coordinates array
 
@@ -44381,7 +44431,6 @@ var CachedImage = function () {
   }, {
     key: 'drawImageAtPosition',
     value: function drawImageAtPosition(ctx, factor, left, top, width, height) {
-
       if (!this.initialized()) return; //can't draw image yet not intialized
 
       if (factor > 2) {
