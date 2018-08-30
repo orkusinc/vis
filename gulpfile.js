@@ -21,18 +21,18 @@ var VIS_MIN_JS = 'vis.min.js'
 var VIS_CSS = 'vis.css'
 var VIS_MIN_CSS = 'vis.min.css'
 var INDIVIDUAL_JS_BUNDLES = [
-  {
-    entry: './index-timeline-graph2d.js',
-    filename: 'vis-timeline-graph2d.min.js'
-  },
-  { entry: './index-network.js', filename: 'vis-network.min.js' },
-  { entry: './index-graph3d.js', filename: 'vis-graph3d.min.js' }
+  // {
+  //   entry: './index-timeline-graph2d.js',
+  //   filename: 'vis-timeline-graph2d.min.js'
+  // },
+  { entry: './index-network.js', filename: 'vis-network.min.js' }
+  // { entry: './index-graph3d.js', filename: 'vis-graph3d.min.js' }
 ]
 var INDIVIDUAL_CSS_BUNDLES = [
-  {
-    entry: ['./lib/shared/**/*.css', './lib/timeline/**/*.css'],
-    filename: 'vis-timeline-graph2d.min.css'
-  },
+  // {
+  //   entry: ['./lib/shared/**/*.css', './lib/timeline/**/*.css'],
+  //   filename: 'vis-timeline-graph2d.min.css'
+  // },
   {
     entry: ['./lib/shared/**/*.css', './lib/network/**/*.css'],
     filename: 'vis-network.min.css'
