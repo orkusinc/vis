@@ -15485,6 +15485,7 @@ var BezierEdgeBase = function (_EdgeBase) {
   }, {
     key: '_bezierCurve',
     value: function _bezierCurve(ctx, values, viaNode1, viaNode2) {
+      console.log('_bezierCurve was called');
       var hasNode1 = viaNode1 !== undefined && viaNode1.x !== undefined;
       var hasNode2 = viaNode2 !== undefined && viaNode2.x !== undefined;
 
@@ -53078,7 +53079,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /**
  * Initializes window.requestAnimationFrame() to a usable form.
@@ -53131,7 +53132,7 @@ var CanvasRenderer = function () {
    * @param {Canvas} canvas
    */
   function CanvasRenderer(body, canvas) {
-    (0, _classCallCheck3["default"])(this, CanvasRenderer);
+    (0, _classCallCheck3['default'])(this, CanvasRenderer);
 
     _initRequestAnimationFrame();
     this.body = body;
@@ -53163,18 +53164,18 @@ var CanvasRenderer = function () {
    */
 
 
-  (0, _createClass3["default"])(CanvasRenderer, [{
-    key: "bindEventListeners",
+  (0, _createClass3['default'])(CanvasRenderer, [{
+    key: 'bindEventListeners',
     value: function bindEventListeners() {
       var _this = this;
 
-      this.body.emitter.on("dragStart", function () {
+      this.body.emitter.on('dragStart', function () {
         _this.dragging = true;
       });
-      this.body.emitter.on("dragEnd", function () {
+      this.body.emitter.on('dragEnd', function () {
         _this.dragging = false;
       });
-      this.body.emitter.on("zoom", function () {
+      this.body.emitter.on('zoom', function () {
         _this.zooming = true;
         window.clearTimeout(_this.zoomTimeoutId);
         _this.zoomTimeoutId = window.setTimeout(function () {
@@ -53182,27 +53183,28 @@ var CanvasRenderer = function () {
           _this._requestRedraw.bind(_this)();
         }, 250);
       });
-      this.body.emitter.on("_resizeNodes", function () {
+      this.body.emitter.on('_resizeNodes', function () {
         _this._resizeNodes();
       });
-      this.body.emitter.on("_redraw", function () {
+      this.body.emitter.on('_redraw', function () {
         if (_this.renderingActive === false) {
           _this._redraw();
         }
       });
-      this.body.emitter.on("_blockRedraw", function () {
+      this.body.emitter.on('_blockRedraw', function () {
         _this.allowRedraw = false;
       });
-      this.body.emitter.on("_allowRedraw", function () {
-        _this.allowRedraw = true;_this.redrawRequested = false;
+      this.body.emitter.on('_allowRedraw', function () {
+        _this.allowRedraw = true;
+        _this.redrawRequested = false;
       });
-      this.body.emitter.on("_requestRedraw", this._requestRedraw.bind(this));
-      this.body.emitter.on("_startRendering", function () {
+      this.body.emitter.on('_requestRedraw', this._requestRedraw.bind(this));
+      this.body.emitter.on('_startRendering', function () {
         _this.renderRequests += 1;
         _this.renderingActive = true;
         _this._startRendering();
       });
-      this.body.emitter.on("_stopRendering", function () {
+      this.body.emitter.on('_stopRendering', function () {
         _this.renderRequests -= 1;
         _this.renderingActive = _this.renderRequests > 0;
         _this.renderTimer = undefined;
@@ -53226,7 +53228,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "setOptions",
+    key: 'setOptions',
     value: function setOptions(options) {
       if (options !== undefined) {
         var fields = ['hideEdgesOnDrag', 'hideEdgesOnZoom', 'hideNodesOnDrag'];
@@ -53246,7 +53248,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_requestNextFrame",
+    key: '_requestNextFrame',
     value: function _requestNextFrame(callback, delay) {
       // During unit testing, it happens that the mock window object is reset while
       // the next frame is still pending. Then, either 'window' is not present, or
@@ -53284,7 +53286,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_startRendering",
+    key: '_startRendering',
     value: function _startRendering() {
       if (this.renderingActive === true) {
         if (this.renderTimer === undefined) {
@@ -53299,7 +53301,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_renderStep",
+    key: '_renderStep',
     value: function _renderStep() {
       if (this.renderingActive === true) {
         // reset the renderTimer so a new scheduled animation step can be set
@@ -53325,7 +53327,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "redraw",
+    key: 'redraw',
     value: function redraw() {
       this.body.emitter.emit('setSize');
       this._redraw();
@@ -53337,7 +53339,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_requestRedraw",
+    key: '_requestRedraw',
     value: function _requestRedraw() {
       var _this2 = this;
 
@@ -53357,12 +53359,12 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_redraw",
+    key: '_redraw',
     value: function _redraw() {
       var hidden = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
       if (this.allowRedraw === true) {
-        this.body.emitter.emit("initRedraw");
+        this.body.emitter.emit('initRedraw');
 
         this.redrawRequested = false;
 
@@ -53391,7 +53393,7 @@ var CanvasRenderer = function () {
         ctx.scale(this.body.view.scale, this.body.view.scale);
 
         ctx.beginPath();
-        this.body.emitter.emit("beforeDrawing", ctx);
+        this.body.emitter.emit('beforeDrawing', ctx);
         ctx.closePath();
 
         if (hidden === false) {
@@ -53405,7 +53407,7 @@ var CanvasRenderer = function () {
         }
 
         ctx.beginPath();
-        this.body.emitter.emit("afterDrawing", ctx);
+        this.body.emitter.emit('afterDrawing', ctx);
         ctx.closePath();
 
         // restore original scaling and translation
@@ -53425,7 +53427,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_resizeNodes",
+    key: '_resizeNodes',
     value: function _resizeNodes() {
       this.canvas.setTransform();
       var ctx = this.canvas.getContext();
@@ -53458,10 +53460,11 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_drawNodes",
+    key: '_drawNodes',
     value: function _drawNodes(ctx) {
       var alwaysShow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
+      console.log('_drawNodes was called');
       var nodes = this.body.nodes;
       var nodeIndices = this.body.nodeIndices;
       var node = void 0;
@@ -53472,10 +53475,14 @@ var CanvasRenderer = function () {
         x: this.canvas.frame.canvas.clientWidth + margin,
         y: this.canvas.frame.canvas.clientHeight + margin
       });
-      var viewableArea = { top: topLeft.y, left: topLeft.x, bottom: bottomRight.y, right: bottomRight.x };
+      var viewableArea = {
+        top: topLeft.y,
+        left: topLeft.x,
+        bottom: bottomRight.y,
+        right: bottomRight.x
 
-      // draw unselected nodes;
-      for (var i = 0; i < nodeIndices.length; i++) {
+        // draw unselected nodes;
+      };for (var i = 0; i < nodeIndices.length; i++) {
         node = nodes[nodeIndices[i]];
         // set selected nodes aside
         if (node.isSelected()) {
@@ -53505,8 +53512,9 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_drawEdges",
+    key: '_drawEdges',
     value: function _drawEdges(ctx) {
+      console.log('_drawEdges was called');
       var edges = this.body.edges;
       var edgeIndices = this.body.edgeIndices;
       var edge = void 0;
@@ -53526,7 +53534,7 @@ var CanvasRenderer = function () {
      */
 
   }, {
-    key: "_determineBrowserMethod",
+    key: '_determineBrowserMethod',
     value: function _determineBrowserMethod() {
       if (typeof window !== 'undefined') {
         var browserType = navigator.userAgent.toLowerCase();
@@ -53548,7 +53556,7 @@ var CanvasRenderer = function () {
   return CanvasRenderer;
 }();
 
-exports["default"] = CanvasRenderer;
+exports['default'] = CanvasRenderer;
 
 /***/ }),
 /* 231 */
