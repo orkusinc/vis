@@ -47517,6 +47517,7 @@ var Image = function (_CircleImageBase) {
   }, {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
+      console.log('draw from vis/lib/network/modules/components/nodes/shapes/Image.js called');
       this.switchImages(selected);
       this.resize();
       this.left = x - this.width / 2;
