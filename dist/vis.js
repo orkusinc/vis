@@ -53402,6 +53402,10 @@ var CanvasRenderer = function () {
 
       console.log('CanvasRenderer _redraw function was called');
       window.visJsCounts.redraw += 1;
+
+      // disable redraw manually
+      this.allowRedraw = false;
+
       if (this.allowRedraw === true) {
         this.body.emitter.emit('initRedraw');
 
