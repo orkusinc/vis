@@ -7869,6 +7869,7 @@ var Node = function () {
     value: function draw(ctx) {
       console.log('Node draw called');
       window.drawNodeCount += 1;
+      debugger;
       var values = this.getFormattingValues();
       this.shape.draw(ctx, this.x, this.y, this.selected, this.hover, values);
     }
@@ -43206,6 +43207,9 @@ function Network(container, data, options) {
   window.drawIconCount = 0;
   window.drawCircleCount = 0;
   window.drawNodeCount = 0;
+  window.redrawCount = 0;
+  window.requestRedrawCount = 0;
+  window.dataChangedEmittedCount = 0;
   console.log(arguments);
   if (!(this instanceof Network)) {
     throw new SyntaxError('Constructor must be called with the new operator');
@@ -44804,10 +44808,9 @@ var NodesHandler = function () {
       value: undefined,
       x: undefined,
       y: undefined
-    };
 
-    // Protect from idiocy
-    if (this.defaultOptions.mass <= 0) {
+      // Protect from idiocy
+    };if (this.defaultOptions.mass <= 0) {
       throw 'Internal error: mass in defaultOptions of NodesHandler may not be zero or negative';
     }
 
@@ -44882,6 +44885,8 @@ var NodesHandler = function () {
 
         // update the state of the variables if needed
         if (options.hidden !== undefined || options.physics !== undefined) {
+          console.log('_dataChanged event emitted from NodesHandler');
+          window.dataChangedEmittedCount += 1;
           this.body.emitter.emit('_dataChanged');
         }
       }
@@ -44935,7 +44940,7 @@ var NodesHandler = function () {
       }
 
       if (doNotEmit === false) {
-        this.body.emitter.emit("_dataChanged");
+        this.body.emitter.emit('_dataChanged');
       }
     }
 
@@ -44964,7 +44969,7 @@ var NodesHandler = function () {
       this.layoutEngine.positionInitially(newNodes);
 
       if (doNotEmit === false) {
-        this.body.emitter.emit("_dataChanged");
+        this.body.emitter.emit('_dataChanged');
       }
     }
 
@@ -45009,9 +45014,9 @@ var NodesHandler = function () {
       }
 
       if (dataChanged === true) {
-        this.body.emitter.emit("_dataChanged");
+        this.body.emitter.emit('_dataChanged');
       } else {
-        this.body.emitter.emit("_dataUpdated");
+        this.body.emitter.emit('_dataUpdated');
       }
     }
 
@@ -45031,7 +45036,7 @@ var NodesHandler = function () {
         delete nodes[id];
       }
 
-      this.body.emitter.emit("_dataChanged");
+      this.body.emitter.emit('_dataChanged');
     }
 
     /**
@@ -45100,7 +45105,10 @@ var NodesHandler = function () {
       } else {
         for (var _i = 0; _i < this.body.nodeIndices.length; _i++) {
           var _node2 = this.body.nodes[this.body.nodeIndices[_i]];
-          dataArray[this.body.nodeIndices[_i]] = { x: Math.round(_node2.x), y: Math.round(_node2.y) };
+          dataArray[this.body.nodeIndices[_i]] = {
+            x: Math.round(_node2.x),
+            y: Math.round(_node2.y)
+          };
         }
       }
       return dataArray;
@@ -45121,7 +45129,11 @@ var NodesHandler = function () {
         if (dataset._data.hasOwnProperty(nodeId)) {
           var node = this.body.nodes[nodeId];
           if (dataset._data[nodeId].x != Math.round(node.x) || dataset._data[nodeId].y != Math.round(node.y)) {
-            dataArray.push({ id: node.id, x: Math.round(node.x), y: Math.round(node.y) });
+            dataArray.push({
+              id: node.id,
+              x: Math.round(node.x),
+              y: Math.round(node.y)
+            });
           }
         }
       }
@@ -45193,7 +45205,7 @@ var NodesHandler = function () {
           edgeList.push(node.edges[i].id);
         }
       } else {
-        console.log("NodeId provided for getConnectedEdges does not exist. Provided: ", nodeId);
+        console.log('NodeId provided for getConnectedEdges does not exist. Provided: ', nodeId);
       }
       return edgeList;
     }
@@ -45215,10 +45227,10 @@ var NodesHandler = function () {
         this.body.nodes[nodeId].x = Number(x);
         this.body.nodes[nodeId].y = Number(y);
         setTimeout(function () {
-          _this4.body.emitter.emit("startSimulation");
+          _this4.body.emitter.emit('startSimulation');
         }, 0);
       } else {
-        console.log("Node id supplied to moveNode does not exist. Provided: ", nodeId);
+        console.log('Node id supplied to moveNode does not exist. Provided: ', nodeId);
       }
     }
   }]);
@@ -53361,6 +53373,8 @@ var CanvasRenderer = function () {
     value: function _requestRedraw() {
       var _this2 = this;
 
+      console.log('_requestRedraw was called');
+      window.requestRedrawCount += 1;
       if (this.redrawRequested !== true && this.renderingActive === false && this.allowRedraw === true) {
         this.redrawRequested = true;
         this._requestNextFrame(function () {
@@ -53381,6 +53395,8 @@ var CanvasRenderer = function () {
     value: function _redraw() {
       var hidden = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
+      console.log('CanvasRenderer _redraw function was called');
+      window.redrawCount += 1;
       if (this.allowRedraw === true) {
         this.body.emitter.emit('initRedraw');
 
