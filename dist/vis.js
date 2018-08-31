@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 4.21.0-SNAPSHOT
- * @date    2018-08-30
+ * @date    2018-08-31
  *
  * @license
  * Copyright (C) 2011-2017 Almende B.V, http://almende.com
@@ -7868,7 +7868,7 @@ var Node = function () {
     key: 'draw',
     value: function draw(ctx) {
       console.log('Node draw called');
-      window.drawNodeCount += 1;
+      window.visJsCounts.drawNode += 1;
       debugger;
       var values = this.getFormattingValues();
       this.shape.draw(ctx, this.x, this.y, this.selected, this.hover, values);
@@ -44886,7 +44886,7 @@ var NodesHandler = function () {
         // update the state of the variables if needed
         if (options.hidden !== undefined || options.physics !== undefined) {
           console.log('_dataChanged event emitted from NodesHandler');
-          window.dataChangedEmittedCount += 1;
+          window.visJsCounts.dataChangedEmitted += 1;
           this.body.emitter.emit('_dataChanged');
         }
       }
@@ -46612,7 +46612,7 @@ var Circle = function (_CircleImageBase) {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
       console.log('node shapes Circle draw was called');
-      window.drawCircleCount += 1;
+      window.visJsCounts.drawCircle += 1;
       this.resize(ctx, selected, hover);
       this.left = x - this.width / 2;
       this.top = y - this.height / 2;
@@ -47350,7 +47350,7 @@ var Icon = function (_NodeBase) {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
       console.log('draw from vis/lib/network/modules/components/nodes/shapes/Icon.js called');
-      window.drawIconCount += 1;
+      window.visJsCounts.drawIcon += 1;
       this.resize(ctx, selected, hover);
       this.options.icon.size = this.options.icon.size || 50;
 
@@ -53374,7 +53374,7 @@ var CanvasRenderer = function () {
       var _this2 = this;
 
       console.log('_requestRedraw was called');
-      window.requestRedrawCount += 1;
+      window.visJsCounts.requestRedraw += 1;
       if (this.redrawRequested !== true && this.renderingActive === false && this.allowRedraw === true) {
         this.redrawRequested = true;
         this._requestNextFrame(function () {
@@ -53396,7 +53396,7 @@ var CanvasRenderer = function () {
       var hidden = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
       console.log('CanvasRenderer _redraw function was called');
-      window.redrawCount += 1;
+      window.visJsCounts.redraw += 1;
       if (this.allowRedraw === true) {
         this.body.emitter.emit('initRedraw');
 
