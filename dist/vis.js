@@ -7869,7 +7869,7 @@ var Node = function () {
     value: function draw(ctx) {
       // console.log('Node draw called')
       window.visJsCounts.drawNode += 1;
-      debugger;
+      // debugger
       var values = this.getFormattingValues();
       this.shape.draw(ctx, this.x, this.y, this.selected, this.hover, values);
     }
@@ -53400,11 +53400,9 @@ var CanvasRenderer = function () {
     value: function _redraw() {
       var hidden = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
+      debugger;
       console.log('CanvasRenderer _redraw function was called');
       window.visJsCounts.redraw += 1;
-
-      // disable redraw manually
-      this.allowRedraw = false;
 
       if (this.allowRedraw === true) {
         this.body.emitter.emit('initRedraw');
