@@ -14720,7 +14720,7 @@ var Edge = function () {
     key: 'updateEdgeType',
     value: function updateEdgeType() {
       var smooth = this.options.smooth;
-      console.log('smooth from network/modules/components/Edge.js', smooth);
+      // console.log('smooth from network/modules/components/Edge.js', smooth)
       var dataChanged = false;
       var changeInType = true;
       if (this.edgeType !== undefined) {
@@ -29632,6 +29632,8 @@ util.extend(exports, __webpack_require__(178));
 // Network
 util.extend(exports, __webpack_require__(182));
 
+console.log('vis/index.js');
+
 /***/ }),
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -43194,6 +43196,8 @@ var KamadaKawai = __webpack_require__(240)['default'];
 function Network(container, data, options) {
   var _this = this;
 
+  console.log('Network was called with args');
+  console.log(arguments);
   if (!(this instanceof Network)) {
     throw new SyntaxError('Constructor must be called with the new operator');
   }
@@ -53464,7 +53468,7 @@ var CanvasRenderer = function () {
     value: function _drawNodes(ctx) {
       var alwaysShow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-      console.log('_drawNodes was called');
+      // console.log('_drawNodes was called')
       var nodes = this.body.nodes;
       var nodeIndices = this.body.nodeIndices;
       var node = void 0;
