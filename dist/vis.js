@@ -7867,7 +7867,7 @@ var Node = function () {
   }, {
     key: 'draw',
     value: function draw(ctx) {
-      console.log('Node draw called');
+      // console.log('Node draw called')
       window.visJsCounts.drawNode += 1;
       debugger;
       var values = this.getFormattingValues();
@@ -47350,7 +47350,9 @@ var Icon = function (_NodeBase) {
   }, {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
-      console.log('draw from vis/lib/network/modules/components/nodes/shapes/Icon.js called');
+      // console.log(
+      //   'draw from vis/lib/network/modules/components/nodes/shapes/Icon.js called'
+      // )
       window.visJsCounts.drawIcon += 1;
       this.resize(ctx, selected, hover);
       this.options.icon.size = this.options.icon.size || 50;
@@ -47543,7 +47545,9 @@ var Image = function (_CircleImageBase) {
   }, {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
-      console.log('draw from vis/lib/network/modules/components/nodes/shapes/Image.js called');
+      // console.log(
+      //   'draw from vis/lib/network/modules/components/nodes/shapes/Image.js called'
+      // )
       this.switchImages(selected);
       this.resize();
       this.left = x - this.width / 2;
