@@ -7421,7 +7421,8 @@ var Node = function () {
     this.selected = false;
     this.hover = false;
 
-    this.labelModule = new Label(this.body, this.options, false /* Not edge label */);
+    this.labelModule = new Label(this.body, this.options, false /* Not edge label */
+    );
     this.setOptions(options);
   }
 
@@ -7475,7 +7476,7 @@ var Node = function () {
       }
 
       if (this.id === undefined) {
-        throw new Error("Node must have an id");
+        throw new Error('Node must have an id');
       }
 
       Node.checkMass(options, this.id);
@@ -7484,16 +7485,20 @@ var Node = function () {
       // clear x and y positions
       if (options.x !== undefined) {
         if (options.x === null) {
-          this.x = undefined;this.predefinedPosition = false;
+          this.x = undefined;
+          this.predefinedPosition = false;
         } else {
-          this.x = parseInt(options.x);this.predefinedPosition = true;
+          this.x = parseInt(options.x);
+          this.predefinedPosition = true;
         }
       }
       if (options.y !== undefined) {
         if (options.y === null) {
-          this.y = undefined;this.predefinedPosition = false;
+          this.y = undefined;
+          this.predefinedPosition = false;
         } else {
-          this.y = parseInt(options.y);this.predefinedPosition = true;
+          this.y = parseInt(options.y);
+          this.predefinedPosition = true;
         }
       }
       if (options.size !== undefined) {
@@ -7539,14 +7544,14 @@ var Node = function () {
       }
 
       if (this.imagelist === undefined) {
-        throw new Error("Internal Error: No images provided");
+        throw new Error('Internal Error: No images provided');
       }
 
       if (typeof this.options.image === 'string') {
         this.imageObj = this.imagelist.load(this.options.image, this.options.brokenImage, this.id);
       } else {
         if (this.options.image.unselected === undefined) {
-          throw new Error("No unselected image provided");
+          throw new Error('No unselected image provided');
         }
 
         this.imageObj = this.imagelist.load(this.options.image.unselected, this.options.brokenImage, this.id);
@@ -7862,6 +7867,8 @@ var Node = function () {
   }, {
     key: 'draw',
     value: function draw(ctx) {
+      console.log('Node draw called');
+      window.drawNodeCount += 1;
       var values = this.getFormattingValues();
       this.shape.draw(ctx, this.x, this.y, this.selected, this.hover, values);
     }
@@ -7941,14 +7948,14 @@ var Node = function () {
     }
 
     /**
-    * Check valid values for mass
-    *
-    * The mass may not be negative or zero. If it is, reset to 1
-    *
-    * @param {object} options
-    * @param {Node.id} id
+     * Check valid values for mass
+     *
+     * The mass may not be negative or zero. If it is, reset to 1
+     *
+     * @param {object} options
+     * @param {Node.id} id
      * @static
-    */
+     */
 
   }], [{
     key: 'updateGroupOptions',
@@ -7998,7 +8005,6 @@ var Node = function () {
       var allowDeletion = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var globalOptions = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
       var groupList = arguments[4];
-
 
       var fields = ['color', 'fixed', 'shadow'];
       util.selectiveNotDeepExtend(fields, parentOptions, newOptions, allowDeletion);
@@ -43197,6 +43203,9 @@ function Network(container, data, options) {
   var _this = this;
 
   console.log('Network was called with args');
+  window.drawIconCount = 0;
+  window.drawCircleCount = 0;
+  window.drawNodeCount = 0;
   console.log(arguments);
   if (!(this instanceof Network)) {
     throw new SyntaxError('Constructor must be called with the new operator');
@@ -46590,6 +46599,8 @@ var Circle = function (_CircleImageBase) {
   }, {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
+      console.log('node shapes Circle draw was called');
+      window.drawCircleCount += 1;
       this.resize(ctx, selected, hover);
       this.left = x - this.width / 2;
       this.top = y - this.height / 2;
@@ -47326,6 +47337,8 @@ var Icon = function (_NodeBase) {
   }, {
     key: 'draw',
     value: function draw(ctx, x, y, selected, hover, values) {
+      console.log('draw from vis/lib/network/modules/components/nodes/shapes/Icon.js called');
+      window.drawIconCount += 1;
       this.resize(ctx, selected, hover);
       this.options.icon.size = this.options.icon.size || 50;
 
@@ -47379,12 +47392,12 @@ var Icon = function (_NodeBase) {
       var iconSize = Number(this.options.icon.size);
 
       if (this.options.icon.code !== undefined) {
-        ctx.font = (selected ? "bold " : "") + iconSize + "px " + this.options.icon.face;
+        ctx.font = (selected ? 'bold ' : '') + iconSize + 'px ' + this.options.icon.face;
 
         // draw icon
-        ctx.fillStyle = this.options.icon.color || "black";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+        ctx.fillStyle = this.options.icon.color || 'black';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
 
         // draw shadow if enabled
         this.enableShadow(ctx, values);
