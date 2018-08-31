@@ -53400,7 +53400,7 @@ var CanvasRenderer = function () {
     value: function _redraw() {
       var hidden = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-      debugger;
+      // debugger
       console.log('CanvasRenderer _redraw function was called');
       window.visJsCounts.redraw += 1;
 
