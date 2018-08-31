@@ -43204,12 +43204,13 @@ function Network(container, data, options) {
   var _this = this;
 
   console.log('Network was called with args');
-  window.drawIconCount = 0;
-  window.drawCircleCount = 0;
-  window.drawNodeCount = 0;
-  window.redrawCount = 0;
-  window.requestRedrawCount = 0;
-  window.dataChangedEmittedCount = 0;
+  window.visJsCounts = {};
+  window.visJsCounts.drawIcon = 0;
+  window.visJsCounts.drawCircle = 0;
+  window.visJsCounts.drawNode = 0;
+  window.visJsCounts.redraw = 0;
+  window.visJsCounts.requestRedraw = 0;
+  window.visJsCounts.dataChangedEmitted = 0;
   console.log(arguments);
   if (!(this instanceof Network)) {
     throw new SyntaxError('Constructor must be called with the new operator');
